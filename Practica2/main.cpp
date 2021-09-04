@@ -109,19 +109,78 @@ class Generador{
 			
 			automata = new AFN((char *)(&alfabeto),num_caracteres,0,&edo_final,1);
 			/*inicia analizis de los caracteres*/
-			readRegExp(reg_exp);
+			genposfija(reg_exp);
 		}
 		~Generador();
 		
-		void readRegExp(string cadena){
+		/*algoritmo Notación inversa polaca*/
+		void genposfija(string cadena){
+			/*
+			string posfija <- cadena que representa la notación posfija
+			int parentesis;
+			Pila operadores
+			mientras no se acabe la cadena o haya un cierre de parentesis{
+				a = leer(cadena)
+				quitar lo leido 'a' en cadena.
+				
+				si a = alfabeto
+					concatenar(posfija,a)
+				si a = corschetes o parentesis
+					concatenar(posfija, genposfija(cadena))
+				si a = operador
+					operadores.push(a)
+			}
 			
+			mientras pila de operadores no esté vacio{
+				concatenar( posfija,operadores.pop() )
+			}
+			
+			generarAFN( posfija, automata );
+			*/
+		}
+		
+		AFN generarAFN( string posfija, AFN objetivo ){
+			/*
+			nota: * concatena AFN; + realiza la union de AFN
+			AFN izquierda;
+			AFN derecha;
+			
+			ins = leer el final de posfija
+			quitar lo leido en posfija
+			
+			switch(ins){
+				case(+):
+					objetivo *= 
+						generarAFN(posfija,izquierda) + generarAFN(posfija,derecha)
+				case(concatenación):
+					objetivo *= 
+						generarAFN(posfija,izquierda) * generarAFN(posfija,derecha)
+				case(*)
+					objetivo += cerradura(posfija,izquierda);
+				case(caracter de alfabeto)
+					objetivo.trancicion.edosig[alfabeto] = objetivo.end_edo;
+			}
+			
+			genDOT(objetivo);
+			
+			*/
+		}
+		
+		void genDOT(AFN objetivo){
+			/*
+				string DOT;
+				
+				...pasos para generar el DOT (la verdad ahí no entendí muy bien XD )
+				
+				cout <<"\n\n\t"<<DOT;
+			*/
 		}
 };
 
 int main(){
 	string Reg;
 			//Generador *constructorAFN = new Generador(Reg);
-			cout<<" ingrese la expresion regular";
+			cout<<" ingrese la expresion regular << ";
 			cin>>Reg;
 			
 			Generador *constructorAFN = new Generador(Reg);
